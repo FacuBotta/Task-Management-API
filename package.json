@@ -1,0 +1,27 @@
+{
+  "name": "tasks-end-points",
+  "version": "1.0.0",
+  "description": "A api rest to manage tasks in my apps",
+  "main": "index.js",
+  "scripts": {
+    "lint": "ts-standard",
+    "test": "test",
+    "tsc": "tsc",
+    "start": "node --watch ./build/index.js",
+    "dev": "ts-node-dev ./src/index.ts"
+  },
+  "author": "facudev",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.4",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "express": "4.21.0",
+    "mysql2": "^3.11.3"
+  }
+}
