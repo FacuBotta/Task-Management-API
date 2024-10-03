@@ -5,13 +5,22 @@ import toNewTaskFromRequest from "../utilities";
 
 const router = express.Router();
 
-router.get("/", async (_req, res): Promise<void> => {
+router.get("/", async (req, res): Promise<void> => {
+  const page: number = parseInt(req.query.page as string) || 1;
+  const limit: number | null = req.query.limit
+    ? parseInt(req.query.limit as string)
+    : null;
+
+  if (page < 1 || (limit && limit < 1)) {
+    res.status(400).send("Page and limit must be greater than 0");
+    return;
+  }
+
   try {
-    const tasks = await tasksServices.getTasks();
-    res.send(tasks);
+    const { tasks, total } = await tasksServices.getTasks(page, limit);
+    res.send({ tasks, total, page, limit });
   } catch (error: any) {
-    console.error("Error in GET /api/tasks:", error);
-    res.status(500).send({ error: error.message });
+    res.status(500).send(error.message);
   }
 });
 router.post("/", async (req, res): Promise<void> => {
@@ -25,13 +34,34 @@ router.post("/", async (req, res): Promise<void> => {
   }
 });
 router.get("/user/:id", async (req, res): Promise<void> => {
+  const userId: number = +req.params.id;
+
+  if (isNaN(userId)) {
+    res.status(400).send("Invalid user ID");
+    return;
+  }
+
+  const page: number = parseInt(req.query.page as string) || 1;
+  const limit: number | null = req.query.limit
+    ? parseInt(req.query.limit as string)
+    : null;
+
+  if (page < 1 || (limit && limit < 1)) {
+    res.status(400).send("Page and limit must be greater than 0");
+    return;
+  }
+
   try {
-    const tasks = await tasksServices.getTasksByUserId(+req.params.id);
-    if (!tasks) {
-      res.status(404).send({ error: "Tasks not found" });
+    const { tasks, total } = await tasksServices.getTasksByUserId(
+      userId,
+      page,
+      limit
+    );
+    if (tasks.length === 0) {
+      res.status(404).send({ error: "No tasks found for this user" });
       return;
     }
-    res.send(tasks);
+    res.send({ tasks, total, page, limit });
   } catch (error: any) {
     console.error("Error in GET /api/tasks/user/:id:", error);
     res.status(500).send({ error: error.message });
