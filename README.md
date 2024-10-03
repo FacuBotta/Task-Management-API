@@ -1,6 +1,11 @@
 # Task Management API 🚀
 
-This API allows you to manage tasks in applications, including creating, reading, updating, and deleting tasks. It uses Express and MySQL as the database🔥 But it's not a production ready API, it's just a simple example to learn and practice.
+This API allows you to manage tasks in applications, including creating, reading, updating, and deleting tasks. It uses Express and MySQL as the database🔥
+
+## It's type safe 💪.
+
+If you trate to introduce a incorrect type in the request body you will get something like this:
+![examplePostmanError](./files/postManError1.png)
 
 It's is a simple API that I developed to improve my skills in Node.js and Express and API architecture. It's a work in progress and I'm open to suggestions and improvements. 🤝
 
@@ -13,15 +18,17 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
 - **Query Parameters:**
   - `page`: Page number (defaults to 1)
   - `limit`: Number of results per page (defaults to 10, or returns all if omitted)
+  - Example: `http://localhost:3000/api/tasks?page=2&limit=20`
 - **Response:**
   ```json
   {
     "tasks": [ ... ],  // Array of tasks
     "total": 100,      // Total number of tasks
-    "page": 1,         // Current page
-    "limit": 10        // Limit of tasks per page
+    "page": 2,         // Current page
+    "limit": 20        // Limit of tasks per page
   }
   ```
+  If you want to get all the tasks you can omit the `page` and `limit` parameters.
 
 # Get Tasks by User ID
 
@@ -41,6 +48,7 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
     "limit": 10        // Limit of tasks per page
   }
   ```
+  Pagination is also supported, you can use the `page` and `limit` parameters to get the next or previous page of tasks or omit them to get all the tasks for the user.
 
 # Get Task by ID
 
@@ -135,14 +143,14 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
 # Requirements
 
 - Node.js
-- MySQL (I using docker to run the database)
+- MySQL (I'm using docker to run the database at the moment)
 
 # Installation
 
 1. Clone the repository
    ```bash
-    git clone https://github.com/your_username/your_repository.git
-   cd your_repository
+    git clone https://github.com/FacuBotta/Task-Management-API.git
+    cd Task-Management-API
    ```
 2. Install dependencies
    ```bash
@@ -150,13 +158,21 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
    ```
 3. Create a `.env` file in the root directory and add the following variables:
    ```bash
+    SERVER_PORT=3000
     DB_HOST=localhost
-    DB_USER=your_username
+    DB_PORT=3306
+    DB_USER=your_database_user
     DB_PASSWORD=your_password
-    DB_NAME=tasks_db
+    DB_NAME=your_database_name
    ```
 4. Start the server
    ```bash
-    npm run start
+    npm run tsc // Compile the TypeScript files
+    npm run start // Start the server
+    // or
+    npm run dev // Start the server in development mode
    ```
-5. Open your browser and navigate to `http://localhost:3000/api/tasks`
+5. You wil get a message like this:
+   ![consoleCapture](./files/consoleCapure.png)
+
+6. Let me a ⭐️ if you liked it 😊
