@@ -2,12 +2,16 @@
 
 This API allows you to manage tasks in applications, including creating, reading, updating, and deleting tasks. It uses Express and MySQL as the database🔥
 
-## It's type safe 💪.
+## It's type safe 💪
 
 If you trate to introduce a incorrect type in the request body you will get something like this:
 ![examplePostmanError](./files/postManError1.png)
 
 It's is a simple API that I developed to improve my skills in Node.js and Express and API architecture. It's a work in progress and I'm open to suggestions and improvements. 🤝
+
+> Check ./src/db/taskSchema.sql file to see the task table schema proposed.
+
+> You can check the types in ./src/types.ts file to see the types for the request body and the response.
 
 ## Endpoints
 
@@ -30,7 +34,7 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
   ```
   If you want to get all the tasks you can omit the `page` and `limit` parameters.
 
-# Get Tasks by User ID
+### 2. Get Tasks by User ID
 
 - **Method:** `GET`
 - **Route:** `/api/tasks/user/:id`
@@ -50,7 +54,7 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
   ```
   Pagination is also supported, you can use the `page` and `limit` parameters to get the next or previous page of tasks or omit them to get all the tasks for the user.
 
-# Get Task by ID
+### 3. Get Task by ID
 
 - **Method:** `GET`
 - **Route:** `/api/tasks/:id`
@@ -63,7 +67,7 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
   }
   ```
 
-# Add Task
+### 4. Add Task
 
 - **Method:** `POST`
 - **Route:** `/api/tasks`
@@ -94,7 +98,7 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
   }
   ```
 
-# Update Task
+### 5. Update Task
 
 - **Method:** `PUT`
 - **Route:** `/api/tasks/:id`
@@ -124,10 +128,10 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
     "deadline": "2024-12-31T23:59:59",
     "createdAt": "2024-01-01T12:00:00",
     "updatedAt": "2024-01-02T12:00:00"
-  }****
+  }
   ```
 
-# Delete Task
+### 6. Delete Task
 
 - **Method:** `DELETE`
 - **Route:** `/api/tasks/:id`
@@ -175,4 +179,4 @@ It's is a simple API that I developed to improve my skills in Node.js and Expres
 5. You wil get a message like this:
    ![consoleCapture](./files/consoleCapure.png)
 
-6. Let me a ⭐️ if you liked it 😊
+6. ## Let me a ⭐️ if you liked it 😊
