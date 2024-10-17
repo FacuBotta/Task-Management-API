@@ -1,3 +1,9 @@
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+); COMMENT='Table for users that can access to the API';
+
 CREATE TABLE tasks (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
     title VARCHAR(255) NOT NULL COMMENT 'Title of the task',
@@ -13,3 +19,4 @@ CREATE TABLE tasks (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Create Time',
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Update Time'
 ) COMMENT='Table for tasks';
+

@@ -1,13 +1,9 @@
 import { RowDataPacket } from "mysql2";
 import db from "../db/connection";
-import { newTaskType, TaskType } from "../types";
+import { newTaskType, PaginatedTasks, TaskType } from "../types";
 
-export interface PaginatedTasks {
-  tasks: TaskType[];
-  total: number;
-}
-
-export const getTasks = async (
+// Get all tasks in the database, its will by deprecated in the future because it's not useful
+export const getAllTasks = async (
   page: number,
   limit: number | null
 ): Promise<PaginatedTasks> => {
@@ -21,16 +17,11 @@ export const getTasks = async (
       values.push(limit, offset);
     }
 
-    // Obtener el total de tareas
     const [totalResult]: any[] = await db.query(
       "SELECT COUNT(*) AS total FROM tasks"
     );
     const total = totalResult[0].total;
-
-    // Obtener las tareas con paginación
     const [tasks] = await db.query(query, values);
-
-    // Retornar las tareas y el total de tareas
     return { tasks: tasks as TaskType[], total };
   } catch (error: any) {
     console.error("Error getting tasks:", error);
@@ -43,10 +34,9 @@ export const getTasksByUserId = async (
   page: number,
   limit: number | null
 ): Promise<PaginatedTasks> => {
-  // Cambia a PaginatedTasks en lugar de PaginatedTasks[]
   try {
     let query = "SELECT * FROM tasks WHERE userId = ?";
-    const values: any[] = [userId]; // Inicializa values con el userId
+    const values: any[] = [userId];
 
     if (limit) {
       const offset = (page - 1) * limit;
@@ -54,31 +44,28 @@ export const getTasksByUserId = async (
       values.push(limit, offset);
     }
 
-    // Obtener las tareas
-    const [tasks] = await db.query(query, values); // Usa values directamente
-
-    // Obtener el total de tareas
+    const [tasks] = await db.query(query, values);
     const [totalResult]: any[] = await db.query(
       "SELECT COUNT(*) AS total FROM tasks WHERE userId = ?",
       [userId]
     );
     const total = totalResult[0].total;
 
-    // Retornar las tareas y el total
     return { tasks: tasks as TaskType[], total };
   } catch (error: any) {
     console.error("Error getting tasks by userId:", error);
     throw new Error(`Error getting tasks by userId: ${error.message}`);
   }
 };
-
-export const getTaskById = async (id: number): Promise<TaskType | null> => {
+export const getTaskById = async (
+  userId: number,
+  taskId: number
+): Promise<TaskType | null> => {
   try {
     const [rows] = await db.query<RowDataPacket[]>(
-      "SELECT * FROM tasks WHERE id = ?",
-      [id]
+      "SELECT * FROM tasks WHERE id = ? AND userId = ?",
+      [taskId, userId]
     );
-
     if (rows.length === 0) {
       return null;
     }
@@ -89,7 +76,6 @@ export const getTaskById = async (id: number): Promise<TaskType | null> => {
     throw new Error(`Error getting task by id: ${error.message}`);
   }
 };
-
 export const addTask = async (task: newTaskType): Promise<newTaskType> => {
   try {
     const [result] = await db.query(

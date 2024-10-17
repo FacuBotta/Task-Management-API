@@ -54,13 +54,16 @@ const parseDeadline = (deadline: any): string => {
   }
 };
 
-// This function serves to convert the request body to a new task object verifying its types from de request body
-export default function toNewTaskFromRequest(reqBody: any): newTaskType {
+// This function serves to convert the request body to a new task object verifying its types
+export default function toNewTaskFromRequest(
+  userId: number,
+  reqBody: any
+): newTaskType {
   const newTask: newTaskType = {
     title: parseTitle(reqBody.title),
     description: parseDescription(reqBody.description),
     status: parseStatus(reqBody.status),
-    userId: reqBody.userId ? parseUserId(reqBody.userId) : null,
+    userId: parseUserId(userId),
     parentTaskId: reqBody.parentTaskId
       ? parseUserId(reqBody.parentTaskId)
       : null,

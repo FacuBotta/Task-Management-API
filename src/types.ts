@@ -21,3 +21,23 @@ export type newTaskType = Omit<
   TaskType,
   "id" | "createdAt" | "updatedAt" | "subTasks" | "completedAt"
 >;
+export interface PaginatedTasks {
+  tasks: TaskType[];
+  total: number;
+}
+export interface User {
+  id: number;
+  email: string;
+  password: string;
+}
+// Needed to add User type to the Express Request object for authentication middleware
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        userId: number;
+        email: string;
+      };
+    }
+  }
+}
