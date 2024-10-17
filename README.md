@@ -83,7 +83,7 @@ If you trate to introduce a incorrect type in the request body you will get some
 - **URL Params:**
   - `id`: Task ID
 - **Headers:**
-  - Authorization: Bearer **your token here**
+  - Authorization: Bearer &lt;_your token here_&gt;
 - **Response:**
   ```json
   {
@@ -96,7 +96,7 @@ If you trate to introduce a incorrect type in the request body you will get some
 - **Method:** `POST`
 - **Route:** `/api/tasks`
 - **Headers:**
-  - Authorization: Bearer **your token here**
+  - Authorization: Bearer &lt;_your token here_&gt;
 - **Request Body:**
   ```json
   {
@@ -131,7 +131,7 @@ If you trate to introduce a incorrect type in the request body you will get some
 - **URL Params:**
   - `id`: Task ID
 - **Headers:**
-  - Authorization: Bearer **your token here**
+  - Authorization: Bearer &lt;_your token here_&gt;
 - **Request Body:**
   ```json
   {
@@ -166,7 +166,7 @@ If you trate to introduce a incorrect type in the request body you will get some
 - **URL Params:**
   - `id`: Task ID
 - **Headers:**
-  - Authorization: Bearer **your token here**
+  - Authorization: Bearer &lt;_your token here_&gt;
 - **Response:**
   ```json
   {
